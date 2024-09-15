@@ -23,6 +23,11 @@ public class CarMeter : MonoBehaviour
     public float distanceTravelled;
     public float distance2SpawnTornado;
 
+    [Header("Sound effect")]
+    public AudioClip IdleSound;
+    public AudioClip MovingSound;
+    private AudioSource audioSource;
+
     private GearStick gearstick;
     private Tornado tornado;
     private GasMeter gasMeter;
@@ -37,6 +42,7 @@ public class CarMeter : MonoBehaviour
     void Start()
     {
         //StartCoroutine(SpeedChanging()); // remove this later
+        audioSource = GetComponent<AudioSource>();
         gasMeter = FindObjectOfType<GasMeter>();
         gearstick = FindObjectOfType<GearStick>();
         tornado = FindObjectOfType<Tornado>();
@@ -63,6 +69,12 @@ public class CarMeter : MonoBehaviour
         if (Speed < MaxSpeed && gear == 2)
         {
             //ITS ABOUT DRIVE ITS ABOUT POWER
+            audioSource.clip = MovingSound;
+            audioSource.pitch = Mathf.Clamp(audioSource.pitch + 0.05f, 0, Random.Range(2.9f,3f));
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
             if (Speed < 0)
             {
                 Speed *= friction;
@@ -81,7 +93,13 @@ public class CarMeter : MonoBehaviour
         else if (gear == 1 && -MaxSpeed / 2 < Speed) // this /2 is also magic number but normally going backward is slower than forward
         {
             //REVERSE
-            if(Speed > 0)
+            audioSource.clip = MovingSound;
+            audioSource.pitch = Mathf.Clamp(audioSource.pitch + 0.1f, 0, 2);
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
+            if (Speed > 0)
             {
                 Speed *= friction;
             }
@@ -94,6 +112,12 @@ public class CarMeter : MonoBehaviour
         else if(gear == 0)
         {
             //STOPU
+            audioSource.pitch = Mathf.Clamp(audioSource.pitch - 0.1f, 1, 3);
+            audioSource.clip = IdleSound;
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
             Speed *= friction;
             if((Speed < 0.1 && Speed > 0) || (Speed > -0.1 && Speed < 0))
             {

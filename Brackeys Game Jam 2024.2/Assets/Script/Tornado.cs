@@ -229,7 +229,7 @@ public class Tornado : MonoBehaviour
 
     IEnumerator UpdateTornado()
     {
-        Debug.Log("Update");
+        //Debug.Log("Update");
         yield return new WaitForSeconds(0.1f);
 
         Speed = Mathf.Clamp(Speed + (dirGoing * SpeedIncrease / 10), -MaxSpeed, MaxSpeed);

@@ -8,6 +8,12 @@ public class DeadBlur : MonoBehaviour
 {
     [Range(0, 1)] public float weight;
     public GameObject DeactiveAfterDead;
+    private AudioSource audioSource;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     private void Update()
     {
@@ -29,5 +35,10 @@ public class DeadBlur : MonoBehaviour
         DeactiveAfterDead.SetActive(false);
         DontDestroyOnLoad(gameObject);
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void playSFX()
+    {
+        audioSource.Play();
     }
 }

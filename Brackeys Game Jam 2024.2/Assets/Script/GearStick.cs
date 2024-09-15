@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GearStick : MonoBehaviour
 {
+    private AudioSource audioSource;
     public int gear; // Gear 0 = P, 1 = R, 2 = D
     private float startingAngle;
     private float startingRotation;
@@ -13,6 +14,7 @@ public class GearStick : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         ChangingGear = false;
         //FindObjectOfType<CarMeter>().ChangeGear(gear);
     }
@@ -43,6 +45,7 @@ public class GearStick : MonoBehaviour
 
     private void OnMouseUp()
     {
+        audioSource.Play();
         ChangingGear = false;
         //Debug.Log(transform.localRotation.eulerAngles.z);
 
