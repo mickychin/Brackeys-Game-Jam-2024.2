@@ -41,6 +41,7 @@ public class CutScene : MonoBehaviour
         if(cutsceneScene == 1)
         {
             Cut1To2Anim.enabled = true;
+            Cut2.gameObject.GetComponent<AudioSource>().Play();
         }
         else if(cutsceneScene >= 2 && cutsceneScene < Cut2To5.Length + 2)
         {
@@ -53,6 +54,7 @@ public class CutScene : MonoBehaviour
 
         if(cutsceneScene == 2)
         {
+            Cut2.gameObject.GetComponent<AudioSource>().Play();
             StopAllCoroutines();
             StartCoroutine(FadeIn(1f, Cut3TextBox, Cut3Text)); // 1f is magic number! HAHA
             Color inviscolor = new Color(0, 0, 0, 0);

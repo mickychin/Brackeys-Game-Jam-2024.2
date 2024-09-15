@@ -79,6 +79,7 @@ public class Tornado : MonoBehaviour
     public Image escapeBG;
     public Image MainmenuEscape;
     public Image viewsImage;
+    public Image YouEscapeImage;
     private float SecondPassesEscape = 0;
 
 
@@ -208,6 +209,7 @@ public class Tornado : MonoBehaviour
             escapeBG.color = color;
             MainmenuEscape.color = color;
             viewsImage.color = color;
+            YouEscapeImage.color = color;
         }
 
         if(ViewCount.color.a != 1)
