@@ -164,7 +164,7 @@ public class Tornado : MonoBehaviour
             {
                 BatteryBars[1].SetActive(false);
             }
-            if (CurrentBattery / MaxBattery < 0f / 3f)
+            if (CurrentBattery / MaxBattery < 0f / 3f && FindObjectOfType<CamOffOn>())
             {
                 BatteryBars[0].SetActive(false);
                 FindObjectOfType<CamOffOn>().RanOutOfBattery();
@@ -232,7 +232,14 @@ public class Tornado : MonoBehaviour
         //Debug.Log("Update");
         yield return new WaitForSeconds(0.1f);
 
-        Speed = Mathf.Clamp(Speed + (dirGoing * SpeedIncrease / 10), -MaxSpeed, MaxSpeed);
+        if(dirGoing == 0)
+        {
+            Speed *= 0.9f;
+        }
+        else
+        {
+            Speed = Mathf.Clamp(Speed + (dirGoing * SpeedIncrease / 10), -MaxSpeed, MaxSpeed);
+        }
 
         if(secondPasses > secondsBe4ChangeDir)
         {
@@ -277,6 +284,7 @@ public class Tornado : MonoBehaviour
 
     IEnumerator PopUpRadioTextBox(int direction)
     {
+        PopUpTextBox.gameObject.GetComponent<AudioSource>().Play();
         Debug.Log(direction + 1);
         PopUpText.sprite = textSprites[direction + 1];
         //PopUpTextBox.gameObject.SetActive(true);
